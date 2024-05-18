@@ -1,0 +1,242 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="client.master.cs" Inherits="client" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>The ArTiStS</title>
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body>
+
+
+
+
+
+
+    <!-- header -->
+    <header class="site-navbar" role="banner">
+        <div class="site-navbar-top">
+            <div class="container">
+                <div class="row align-items-center">
+
+                    <div class="col-6 col-md-4 order-2 order-md-1 icon icon-search2 text-left">
+                        <%--<form action="#" class="site-block-top-search">--%>
+                        <%--<span class="" style="font-size:23px;"></span>--%>
+                        <input type="text" id="txtSearch" class="form-control border-0" placeholder="Search">
+                        <%--</form>--%>
+                    </div>
+
+                    <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
+                        <div class="site-logo">
+                            <a href="Default.aspx" class="js-logo-clone">ThE ArTiStS</a>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-4 order-3 order-md-3 text-right">
+                        <div class="site-top-icons">
+                            <ul>
+
+                                <%
+                                    if (Session["useremail"] != null)
+                                    {
+
+                                %>
+
+                                <%--<li>  <img src="images/logout(1).png" width="40" />&nbsp;<a href="logout.aspx"><span  style="float: right;"></span></a></li>--%>
+
+                                <li><a href="profile.aspx"><span class="icon icon-person" style="font-size: 24px;"></span></a></li>
+
+                                <li><a href="logout.aspx"><span class="bi bi-box-arrow-in-left " style="font-size: 23px;"></span></a></li>
+                                <%=
+                       Session["profilename"]
+                                %>
+                                <%
+                                    }
+                                    else
+                                    {
+
+                                %>
+                                <li><a href="login.aspx"><span class="bi bi-box-arrow-in-right " style="font-size: 23px;"></span></a></li>
+
+
+                                <%
+                                    }
+                                %>
+
+                                <li><a href="wishlist.aspx"><span class="icon icon-heart-o" style="font-size: 23px;"></span></a></li>
+                                <li>
+                                    <a href="cart.aspx" class="site-cart">
+                                        <span class="icon icon-shopping_cart" style="font-size: 23px;"></span>
+                                        <span class="count" id="cartItemCount">
+                                            <!-- Item count will be displayed here dynamically -->
+                                                <%= cartItemCount %>
+                                        </span>
+                                    </a>
+                                </li>
+
+                                <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <%@ Import Namespace="System.Data.SqlClient" %>
+
+        <nav class="site-navigation text-right text-md-center" role="navigation">
+            <div class="container">
+                <ul class="site-menu js-clone-nav d-none d-md-block">
+                    <li><a href="Default.aspx">Home</a></li>
+                    <li class="has-children active">
+                        <a href="shop.aspx">Shop</a>
+                        <ul class="dropdown">
+
+                            <% 
+                                SqlConnection conn = new SqlConnection("Data Source=DESKTOP-L6GFUGE\\YASH;Initial Catalog=artandshopmns;Integrated Security=True");
+                                try
+                                {
+                                    conn.Open();
+                                    SqlCommand cmd = new SqlCommand("SELECT * FROM tbl_category", conn);
+                                    SqlDataReader reader = cmd.ExecuteReader();
+                                    while (reader.Read())
+                                    {
+                            %>
+                            <li><a href="shop.aspx?categoryid = <% reader["cid"].ToString(); %>"><%= reader["c_name"] %></a></li>
+                            <% 
+                                    }
+                                    reader.Close();
+                                }
+                                catch (Exception ex)
+                                {
+                                    Response.Write("Error: " + ex.Message);
+                                }
+                                finally
+                                {
+                                    conn.Close();
+                                }
+                            %>
+                        </ul>
+                    </li>
+                    <li><a href="workshop.aspx">Workshop</a></li>
+                    <li><a href="aboutus.aspx">About US</a></li>
+                    <li><a href="contact.aspx">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+
+
+
+
+
+    <form id="form1" runat="server">
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+
+    <!-- Footer -->
+    <footer class="site-footer border-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="footer-heading mb-4">Navigations</h3>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <ul class="list-unstyled">
+                                <li><a href="#">Sell online</a></li>
+                                <li><a href="#">Features</a></li>
+                                <li><a href="#">Shopping cart</a></li>
+                                <li><a href="#">Store builder</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <ul class="list-unstyled">
+                                <li><a href="#">Mobile commerce</a></li>
+                                <li><a href="#">Dropshipping</a></li>
+                                <li><a href="#">Website development</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <ul class="list-unstyled">
+                                <li><a href="#">Point of sale</a></li>
+                                <li><a href="#">Hardware</a></li>
+                                <li><a href="#">Software</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+                    <!-- <h3 class="footer-heading mb-4">Promo</h3 -->
+                    <a href="#" class="block-6">
+                        <img src="images/Artist-amico.png" alt="Image placeholder" class="img-fluid rounded mb-4">
+                        <h3 class="font-weight-light  mb-0">FINDING For YOU</h3>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="block-5 mb-5">
+                        <h3 class="footer-heading mb-4">Contact Info</h3>
+                        <ul class="list-unstyled">
+                            <li class="address">203 b wing Digital Vally, Mota varacha, Surat, Gujrat, india</li>
+                            <li class="phone"><a href="tel://23923929210">+91 800 800 800</a></li>
+                            <li class="email">theartists@gmail.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="block-7">
+                        <form action="#" method="post">
+                            <label for="email_subscribe" class="footer-heading">Subscribe</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
+                                <input type="submit" class="btn btn-sm btn-primary" value="Send">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-5 mt-5 text-center">
+                <div class="col-md-12">
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script>
+                        All rights reserved with the ArTiStS <i class="icon-heart" aria-hidden="true"></i>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+</body>
+
+
+</html>

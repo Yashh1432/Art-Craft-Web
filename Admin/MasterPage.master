@@ -1,0 +1,142 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="Admin_MasterPage" %>
+
+<!DOCTYPE html>
+<html>
+
+<head runat="server">
+
+    <title><%: Page.Title %>  ThE ArTiStS Shop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <style>
+        #items0, #items1, #item4, #items4, #items2, #items3, #items5, #items6 {
+            text-align: center;
+            font-size: x-large;
+            font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+        }
+
+        #logout, #admin {
+            float: right;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
+        #d2, #d3, #d4, #d5, #6 {
+            text-align: center;
+            font-size: x-large;
+            font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+        }
+
+        
+    </style>
+
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+
+
+</head>
+<body>
+
+
+
+
+    <section>
+        <div class="w3-sidebar w3-dark-grey w3-bar-block" style="width: 15%">
+            <h3 id="item2" class="w3-bar-item"><span>
+                <img src="../images/logo.png" width="40" /></span>ThE ArTiStS</h3>
+            <a href="Dashboard.aspx" id="items0" class="w3-bar-item w3-button"><span><i class="fa fa-home"></i>&nbsp;</span>Home</a>
+            <a href="customer.aspx" id="items1" class="w3-bar-item w3-button"><span><i class="fa fa-user"></i>&nbsp;</span>Customer</a>
+            <a href="addproduct.aspx" id="items2" class="w3-bar-item w3-button"><span><i class="fa fa-shopping-cart"></i>&nbsp;</span>Product</a>
+            <div class="w3-dropdown-hover">
+                <a href="Dashboard.aspx" id="items3" class="w3-bar-item w3-button"><span><i class="fa fa-list"></i>&nbsp;</span>Category</a>
+                <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                    <a class="w3-bar-item  w3-light-grey w3-button" id="d4" href="addcategory.aspx">Category</a>
+
+                    <a class="w3-bar-item  w3-light-grey w3-button" id="d2" href="addsubcategory.aspx">Sub Category</a>
+                    <a class="w3-bar-item  w3-light-grey w3-button" id="d3" href="addbrand.aspx">Brand</a>
+                </div>
+            </div>
+            <a href="addworkshopaspx.aspx" id="items4" class="w3-bar-item w3-button"><span><i class="fa fa-play-circle-o"></i>&nbsp;</span>Workshop</a>
+
+            <a href="stock.aspx" id="items5" class="w3-bar-item w3-button"><span><i class="fa fa-stack-overflow"></i>&nbsp;</span>Stock</a>
+            <a href="order.aspx" id="items6" class="w3-bar-item w3-button"><span><i class="fa fa-shopping-bag"></i>&nbsp;</span>Order</a>
+
+        </div>
+        <!-- Page Content -->
+        <div class="logout" style="margin-left: 15%">
+
+            <div class="w3-container w3-dark-grey">
+
+                <h2 style="text-align: center; font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;">Art & Craft Shop Management System
+             <%if (Session["useremail"] != null)
+                 {
+
+
+             %>
+
+
+                    <a href="../logout.aspx"><span id="logout">  &nbsp;&nbsp
+                         &nbsp;&nbsp &nbsp;&nbsp
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="black" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                                <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                            </svg> &nbsp;&nbsp &nbsp;&nbsp</span>
+                            <a href="profile.aspx"><span id="profile">
+                                <img src="../images/profile.png" width="40" /></span></a>
+                            <%
+                                }
+                                else
+                                {
+                                    Response.Redirect("../login.aspx");
+                                }
+
+
+                            %></h2>
+            </div> 
+
+            <form id="form2" runat="server">
+                <div>
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </form>
+
+
+
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class="w3-container w3-light-grey footer ]">
+
+            <p>© 2024 Copyright: <a href="Dashboard.aspx">WWW.ThE ArTiStS.COM</a></p>
+        </div>
+    </section>
+</body>
+</html>
